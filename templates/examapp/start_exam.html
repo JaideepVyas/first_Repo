@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}{{ exam.title }}{% endblock %}
+
+{% block content %}
+<h3 class="mb-3">{{ exam.title }}</h3>
+
+<p class="fw-bold">
+Time Left: <span id="timer"></span>
+</p>
+
+<form method="post" id="examForm">
+{% csrf_token %}
+
+{% for q in questions %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <p><strong>{{ forloop.counter }}. {{ q.question_text }}</strong></p>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio"
+               name="question_{{ q.id }}" value="A">
+        <label class="form-check-label">{{ q.option_a }}</label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio"
+               name="question_{{ q.id }}" value="B">
+        <label class="form-check-label">{{ q.option_b }}</label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio"
+               name="question_{{ q.id }}" value="C">
+        <label class="form-check-label">{{ q.option_c }}</label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio"
+               name="question_{{ q.id }}" value="D">
+        <label class="form-check-label">{{ q.option_d }}</label>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+<button class="btn btn-danger">Submit Exam</button>
+</form>
+
+<script>
+let timeLeft = {{ exam.duration }} * 60;
+
+const timer = document.getElementById("timer");
+
+const countdown = setInterval(function() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    timer.innerHTML =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+    if (timeLeft <= 0) {
+        clearInterval(countdown);
+        document.getElementById("examForm").submit();
+    }
+
+    timeLeft--;
+}, 1000);
+</script>
+
+{% endblock %}

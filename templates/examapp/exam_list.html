@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Available Exams{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 exam-title">Available Exams</h2>
+
+<div class="row">
+  {% for exam in exams %}
+    <div class="col-md-4">
+      <div class="card mb-3 shadow-sm exam-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ exam.title }}</h5>
+          <p class="card-text">
+            Duration: {{ exam.duration }} minutes<br>
+            Total Marks: {{ exam.total_marks }}
+          </p>
+          <a href="{% url 'start_exam' exam.id %}" class="btn btn-success start-exam-btn">
+            Start Exam
+          </a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">No exams available right now.</p>
+  {% endfor %}
+</div>
+{% endblock %}

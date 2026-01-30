@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}My Results{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">My Results</h2>
+
+{% if results %}
+  <div class="row">
+    {% for result in results %}
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ result.exam.title }}</h5>
+
+            <p class="card-text">
+              <strong>Score:</strong>
+              <span class="badge bg-success fs-6">
+                {{ result.score }}
+              </span>
+            </p>
+
+            <p class="card-text text-muted">
+              <small>
+                Submitted on:<br>
+                {{ result.submitted_at|date:"d M Y, H:i" }}
+              </small>
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Next Exam Button -->
+  <div class="text-center mt-3">
+    {% if next_exam %}
+      <a href="{% url 'start_exam' next_exam.id %}" class="btn btn-primary">
+        Go to Next Test
+      </a>
+    {% else %}
+      <div class="alert alert-secondary">
+        No more exams available.
+      </div>
+    {% endif %}
+  </div>
+
+{% else %}
+  <div class="alert alert-info">
+    You have not attempted any exams yet.
+  </div>
+{% endif %}
+
+{% endblock %}

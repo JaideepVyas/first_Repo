@@ -1,0 +1,44 @@
+/* Global styles */
+body {
+    background-color: rgba(224, 54, 59, 0.667);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Cards */
+.card {
+    border-radius: 12px;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+}
+
+/* Login card */
+.login-card {
+    margin-top: 80px;
+}
+
+/* Exam title */
+.exam-title {
+    font-weight: 600;
+}
+
+/* Result score badge */
+.score-badge {
+    font-size: 1.1rem;
+    padding: 8px 12px;
+}
+
+/* Banner image size control */
+.banner-img {
+    max-height: 300px;      /* 👈 control height here */
+    width: 35%;
+    object-fit: cover;     /* crops image nicely */
+}
